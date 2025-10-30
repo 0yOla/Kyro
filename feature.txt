@@ -1,1 +1,1 @@
-Create image processing utilities
+Implement content categorization system

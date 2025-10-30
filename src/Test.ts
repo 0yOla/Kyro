@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export async function searchImage(query: string): Promise<string | null> {
     try {
         console.log(`🔍 Searching: ${query}`);

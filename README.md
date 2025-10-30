@@ -75,7 +75,7 @@ vercel deploy
 POST /train
 {
   "type": "video",
-  "url": "https://www.youtube.com/watch?v=example"
+  "url": "https://www.youtube.com/watch?v=example",
 }
 ```
 

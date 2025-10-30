@@ -1,1 +1,1 @@
-Set up environment variable configuration
+Add web scraping functionality for content research

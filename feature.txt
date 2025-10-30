@@ -1,1 +1,1 @@
-Implement Google Generative AI for content creation
+Set up MongoDB connection with Mongoose schemas

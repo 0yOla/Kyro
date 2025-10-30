@@ -1,1 +1,1 @@
-Add TypeScript strict type checking
+Create automated testing framework

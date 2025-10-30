@@ -1,1 +1,1 @@
-Add trending topic detection feature
+Create image processing utilities

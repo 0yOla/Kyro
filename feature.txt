@@ -1,1 +1,1 @@
-Create content approval workflow
+Implement content translation capabilities

@@ -1,1 +1,1 @@
-Create email notification system with Nodemailer
+Add Puppeteer for advanced web scraping

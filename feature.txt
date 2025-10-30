@@ -1,1 +1,1 @@
-Add Instagram Private API integration for cross-posting
+Implement Winston logger configuration

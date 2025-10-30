@@ -1,1 +1,1 @@
-Add CORS configuration for API security
+Implement error handling middleware

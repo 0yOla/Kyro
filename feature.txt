@@ -1,1 +1,1 @@
-Initialize Kyro AI agent project structure
+Add Twitter API integration for content publishing

@@ -1,1 +1,1 @@
-Implement content versioning system
+Add multi-platform publishing capabilities

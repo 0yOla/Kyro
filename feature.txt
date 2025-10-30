@@ -1,1 +1,1 @@
-Add Twitter API integration for content publishing
+Implement Google Generative AI for content creation

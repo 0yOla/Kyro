@@ -1,1 +1,1 @@
-Implement content scheduling with cron jobs
+Add PDF and document parsing capabilities

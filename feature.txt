@@ -1,1 +1,1 @@
-Implement YouTube transcript extraction
+Create email notification system with Nodemailer

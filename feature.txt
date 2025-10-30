@@ -1,1 +1,1 @@
-Add content caching mechanism
+Create analytics tracking for published content

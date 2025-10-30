@@ -1,1 +1,1 @@
-Add health check endpoints for monitoring
+Implement graceful shutdown handling

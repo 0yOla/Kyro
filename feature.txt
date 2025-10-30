@@ -1,1 +1,1 @@
-Add web scraping functionality for content research
+Implement rate limiting for Twitter API

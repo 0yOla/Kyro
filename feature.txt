@@ -1,1 +1,1 @@
-Implement content translation capabilities
+Add content plagiarism detection

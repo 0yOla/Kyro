@@ -1,1 +1,1 @@
-Implement content quality scoring algorithm
+Add trending topic detection feature

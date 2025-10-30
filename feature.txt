@@ -1,1 +1,1 @@
-Implement graceful shutdown handling
+Create CLI interface with figlet and chalk

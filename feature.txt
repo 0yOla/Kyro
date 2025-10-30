@@ -1,1 +1,1 @@
-Create CLI interface with figlet and chalk
+Add CORS configuration for API security

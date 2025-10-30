@@ -1,1 +1,1 @@
-Implement content scheduling optimization
+Add content performance analytics dashboard

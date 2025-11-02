@@ -19,7 +19,7 @@ Kyro is a **serverless** and **autonomous Social AI Agent** designed to post on 
 ## Supported File Formats 📂
 
 - **Documents**: PDF, DOC, DOCX, TXT
-- **Audio**: MP3, WAV
+- **Audio**: MP3, WAV.
 
 ---
 

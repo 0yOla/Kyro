@@ -178,4 +178,3 @@ Kyro is released under the **MIT License**.
 
 💬 **Twitter/X**: [BugHunter.dev](https://twitter.com/davepatty5686)\
 💬 **Email**: [davidchuksdev@gmail.com](mailto:davidchuksdev@gmail.com)
-

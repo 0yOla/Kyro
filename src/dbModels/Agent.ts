@@ -1,10 +1,10 @@
-import mongoose, { Document, Schema, Model } from "mongoose";
+import mongoose, { Document, Schema, Model } from 'mongoose'
 
 // Interface for TypeScript support
 export interface IAgent extends Document {
-	YoutubeData: string,
-	AudioData: string,
-	WebsiteData: string,
+	YoutubeData: string
+	AudioData: string
+	WebsiteData: string
 	TextData: string
 }
 
@@ -16,6 +16,5 @@ export const agentSchema = new Schema<IAgent>({
 	YoutubeData: { type: String },
 })
 
-
 // Create the Tweet model
-export const Agent: Model<IAgent> = mongoose.model<IAgent>("Agent", agentSchema);
+export const Agent: Model<IAgent> = mongoose.model<IAgent>('Agent', agentSchema)

@@ -43,7 +43,6 @@ app.get('/uptime', serverUpTime)
 // Catch-all 404 handler for undefined routes
 app.use(catchAll404Request)
 
-
 // Global error handler
 app.use(globalError)
 

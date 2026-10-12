@@ -1,97 +1,94 @@
-import { GoogleAIFileManager, FileState } from "@google/generative-ai/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
-import path from "path";
-import fs from "fs";
-import mime from "mime-types";
-import connectDB from "../../../config/db";
-import { Agent } from "../../../dbModels/Agent";
+import { GoogleAIFileManager, FileState } from '@google/generative-ai/server'
+import { GoogleGenerativeAI } from '@google/generative-ai'
+import dotenv from 'dotenv'
+import path from 'path'
+import fs from 'fs'
+import mime from 'mime-types'
+import connectDB from '../../../config/db'
+import { Agent } from '../../../dbModels/Agent'
 
-dotenv.config();
+dotenv.config()
 
-const apiKey = "REDACTED_API_KEY"
+// Audio transcription stays on Gemini: DeepSeek has no audio/file-upload API.
+const apiKey = process.env.GEMINI_API_KEY
 if (!apiKey) {
-  throw new Error("API key is missing");
+	throw new Error('GEMINI_API_KEY is missing')
 }
 
-const fileManager = new GoogleAIFileManager(apiKey);
+const fileManager = new GoogleAIFileManager(apiKey)
 
 // Function to upload, process, and delete the audio file with support for various formats
 const processAudioFile = async (fileName: string): Promise<void> => {
-  try {
-    // Resolve the file path relative to the project root
-    const filePath = path.resolve(__dirname, fileName);
+	try {
+		// Resolve the file path relative to the project root
+		const filePath = path.resolve(__dirname, fileName)
 
-    // Check if the file exists at the resolved path
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`File not found: ${filePath}`);
-    }
+		// Check if the file exists at the resolved path
+		if (!fs.existsSync(filePath)) {
+			throw new Error(`File not found: ${filePath}`)
+		}
 
-    // Get MIME type of the file based on the extension
-    const mimeType = mime.lookup(filePath);
-    if (!mimeType || !mimeType.startsWith("audio/")) {
-      throw new Error("Invalid audio file format.");
-    }
+		// Get MIME type of the file based on the extension
+		const mimeType = mime.lookup(filePath)
+		if (!mimeType || !mimeType.startsWith('audio/')) {
+			throw new Error('Invalid audio file format.')
+		}
 
-    // Upload the audio file with the correct MIME type
-    const uploadResult = await fileManager.uploadFile(filePath, {
-      mimeType: mimeType,
-      displayName: "Audio sample",
-    });
+		// Upload the audio file with the correct MIME type
+		const uploadResult = await fileManager.uploadFile(filePath, {
+			mimeType: mimeType,
+			displayName: 'Audio sample',
+		})
 
-    let file = await fileManager.getFile(uploadResult.file.name);
+		let file = await fileManager.getFile(uploadResult.file.name)
 
-    // Wait for the audio file to be processed
-    while (file.state === FileState.PROCESSING) {
-      process.stdout.write(".");
-      // Sleep for 10 seconds
-      await new Promise((resolve) => setTimeout(resolve, 10_000));
-      // Fetch the file from the API again
-      file = await fileManager.getFile(uploadResult.file.name);
-    }
+		// Wait for the audio file to be processed
+		while (file.state === FileState.PROCESSING) {
+			process.stdout.write('.')
+			// Sleep for 10 seconds
+			await new Promise((resolve) => setTimeout(resolve, 10_000))
+			// Fetch the file from the API again
+			file = await fileManager.getFile(uploadResult.file.name)
+		}
 
-    if (file.state === FileState.FAILED) {
-      throw new Error("Audio processing failed.");
-    }
+		if (file.state === FileState.FAILED) {
+			throw new Error('Audio processing failed.')
+		}
 
-    // Log the uploaded file URI
-    console.log(
-      `Uploaded file ${uploadResult.file.displayName} as: ${uploadResult.file.uri}`
-    );
+		// Log the uploaded file URI
+		console.log(`Uploaded file ${uploadResult.file.displayName} as: ${uploadResult.file.uri}`)
 
-    // Generate content using Gemini
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+		// Generate content using Gemini
+		const genAI = new GoogleGenerativeAI(apiKey)
+		const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
-    const result = await model.generateContent([
-      "Generate a transcript of the audio.",
-      {
-        fileData: {
-          fileUri: uploadResult.file.uri,
-          mimeType: uploadResult.file.mimeType,
-        },
-      },
-    ]);
+		const result = await model.generateContent([
+			'Generate a transcript of the audio.',
+			{
+				fileData: {
+					fileUri: uploadResult.file.uri,
+					mimeType: uploadResult.file.mimeType,
+				},
+			},
+		])
 
-    // Log the response
-    const content = result.response.text()
-    console.log(result.response.text());
+		// Log the response
+		const content = result.response.text()
+		console.log(result.response.text())
 
-    await connectDB()
-    // Save parsed data to MongoDB
-    const agentInstance = new Agent({ AudioData: content });
-    await agentInstance.save();
+		await connectDB()
+		// Save parsed data to MongoDB
+		const agentInstance = new Agent({ AudioData: content })
+		await agentInstance.save()
 
-    // Delete the uploaded file after processing
-    await fileManager.deleteFile(uploadResult.file.name);
-    console.log(`Deleted ${uploadResult.file.displayName}`);
+		// Delete the uploaded file after processing
+		await fileManager.deleteFile(uploadResult.file.name)
+		console.log(`Deleted ${uploadResult.file.displayName}`)
+	} catch (error) {
+		console.error('Error processing audio file:', error)
+	}
+}
 
-  } catch (error) {
-    console.error("Error processing audio file:", error);
-  }
-};
-
-
-processAudioFile("LilTjay.mp3").catch((error) => {
-  console.error("An error occurred:", error);
-});
+processAudioFile('LilTjay.mp3').catch((error) => {
+	console.error('An error occurred:', error)
+})

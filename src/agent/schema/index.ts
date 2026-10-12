@@ -1,5 +1,5 @@
-import { SchemaType } from '@google/generative-ai'
-
+/** JSON Schema type names accepted by the DeepSeek (OpenAI-compatible) API. */
+export type SchemaType = 'object' | 'array' | 'string' | 'number' | 'integer' | 'boolean' | 'null'
 
 export interface PostDataSchema {
 	description: string
@@ -30,23 +30,25 @@ export interface PostDataSchema {
 export const getPostDataSchema = (): PostDataSchema => {
 	return {
 		description: `Schema for posting after viewing the JSON DATA for a user persona`,
-		type: SchemaType.ARRAY,
+		type: 'array',
 		items: {
-			type: SchemaType.OBJECT,
+			type: 'object',
 			properties: {
 				postContent: {
-					type: SchemaType.STRING,
+					type: 'string',
 					description: 'A post between 100 and 250 characters long. do not add hashtags',
 					nullable: false,
 				},
 				viraRate: {
-					type: SchemaType.NUMBER,
-					description: 'The viral rate, meaning the rate of the content to go viral when posted, measured on a scale of 0 to 100.',
+					type: 'number',
+					description:
+						'The viral rate, meaning the rate of the content to go viral when posted, measured on a scale of 0 to 100.',
 					nullable: false,
 				},
 				postImageQuery: {
-					type: SchemaType.STRING,
-					description: 'A precise image search query to fetch a exact image that matches the post via the Google Custom Search API',
+					type: 'string',
+					description:
+						'A precise image search query to fetch a exact image that matches the post via the Google Custom Search API',
 					nullable: true,
 				},
 			},
@@ -251,75 +253,75 @@ export interface CharacterSchema {
 export const getCharacterSchema = (): CharacterSchema => {
 	return {
 		description: `Schema for configuring an AI agent with settings, bio, lore, knowledge, message examples, topics, style preferences, and adjectives.`,
-		type: SchemaType.OBJECT,
+		type: 'object',
 		properties: {
 			fileName: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description:
 					'The file name of agent persona i.e (agentname.character.json as example elonMusk.character.json) note:: camelCase for ai agent name .',
 				nullable: false,
 			},
 			name: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'The name of the agent.',
 				nullable: false,
 			},
 			profileImageQuery: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: ' A precise image search query to fetch a exact profile image via the Google Custom Search API',
 				nullable: false,
 			},
 			profileVerification: {
-				type: SchemaType.BOOLEAN,
+				type: 'boolean',
 				description: 'The profileVerification blue tick of the agent.',
 				nullable: false,
 			},
 			gender: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'The gender of the agent.',
 				nullable: false,
 			},
 			password: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description:
 					'A 8 hard unique and strong random password for the agent account. randomize from here to create one :: "#ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%$@!*?"',
 				nullable: false,
 			},
 			email: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'A unique and strong gmail email address with for the agent account.',
 				nullable: false,
 			},
 			age: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'The age of the agent.',
 				nullable: false,
 			},
 			location: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'The location of the agent.',
 				nullable: false,
 			},
 			occupation: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description: 'The occupation of the agent.',
 				nullable: false,
 			},
 			agentId: {
-				type: SchemaType.STRING,
+				type: 'string',
 				description:
 					"A unique identifier for the agent, formatted as 'aiAGENT_name_+ 6 randomn charaters supflix' i.e aiAGENT_name_589062",
 				nullable: false,
 			},
 			settings: {
-				type: SchemaType.OBJECT,
+				type: 'object',
 				description: 'Settings for the agent, including voice configuration.',
 				properties: {
 					voice: {
-						type: SchemaType.OBJECT,
+						type: 'object',
 						properties: {
 							model: {
-								type: SchemaType.STRING,
+								type: 'string',
 								description: "The voice model for the agent (e.g., 'en_US-male-medium').",
 								nullable: false,
 							},
@@ -330,37 +332,37 @@ export const getCharacterSchema = (): CharacterSchema => {
 				required: ['voice'],
 			},
 			bio: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description:
 					"An array of strings describing the agent's biography, note: must be minimum length of 160 char count",
-				items: { type: SchemaType.STRING },
+				items: { type: 'string' },
 				nullable: false,
 			},
 			lore: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: "An array of strings defining the agent's lore or backstory.",
-				items: { type: SchemaType.STRING },
+				items: { type: 'string' },
 				nullable: false,
 			},
 			knowledge: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: "An array of strings containing the agent's knowledge base.",
-				items: { type: SchemaType.STRING },
+				items: { type: 'string' },
 				nullable: false,
 			},
 			messageExamples: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: "Example QA message interactions for  (btw 'Friend' and 'Agent Name')",
 				items: {
-					type: SchemaType.OBJECT,
+					type: 'object',
 					properties: {
 						userMessage: {
-							type: SchemaType.STRING,
+							type: 'string',
 							description: 'The message content sent to the agent.',
 							nullable: false,
 						},
 						agentRelytoMessage: {
-							type: SchemaType.STRING,
+							type: 'string',
 							description: 'The agent reply to the user messsage content.',
 							nullable: false,
 						},
@@ -370,18 +372,18 @@ export const getCharacterSchema = (): CharacterSchema => {
 				nullable: false,
 			},
 			postExamples: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: 'Examples of social media posts by the agent.',
 				items: {
-					type: SchemaType.OBJECT,
+					type: 'object',
 					properties: {
 						user: {
-							type: SchemaType.STRING,
+							type: 'string',
 							description: 'The user posting the example.',
 							nullable: false,
 						},
 						content: {
-							type: SchemaType.STRING,
+							type: 'string',
 							description: 'The post content.',
 							nullable: false,
 						},
@@ -391,40 +393,40 @@ export const getCharacterSchema = (): CharacterSchema => {
 				nullable: false,
 			},
 			topics: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: 'An array of topics the agent is proficient in.',
-				items: { type: SchemaType.STRING },
+				items: { type: 'string' },
 				nullable: false,
 			},
 			style: {
-				type: SchemaType.OBJECT,
+				type: 'object',
 				description: "The agent's style preferences for communication.",
 				properties: {
 					all: {
-						type: SchemaType.ARRAY,
+						type: 'array',
 						description: 'General style adjectives.',
-						items: { type: SchemaType.STRING },
+						items: { type: 'string' },
 						nullable: false,
 					},
 					chat: {
-						type: SchemaType.ARRAY,
+						type: 'array',
 						description: 'Style preferences specific to chat interactions.',
-						items: { type: SchemaType.STRING },
+						items: { type: 'string' },
 						nullable: false,
 					},
 					post: {
-						type: SchemaType.ARRAY,
+						type: 'array',
 						description: 'Style preferences specific to posts.',
-						items: { type: SchemaType.STRING },
+						items: { type: 'string' },
 						nullable: false,
 					},
 				},
 				required: ['all', 'chat', 'post'],
 			},
 			adjectives: {
-				type: SchemaType.ARRAY,
+				type: 'array',
 				description: 'A list of adjectives describing the agent.',
-				items: { type: SchemaType.STRING },
+				items: { type: 'string' },
 				nullable: false,
 			},
 		},

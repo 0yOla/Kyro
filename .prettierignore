@@ -1,0 +1,8 @@
+# Build output — never worth formatting.
+build
+dist
+coverage
+
+# web/ is a separate app with its own package.json and toolchain.
+# Run `npm run format` inside it if you want it checked independently.
+web

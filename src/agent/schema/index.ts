@@ -4,56 +4,69 @@ export type SchemaType = 'object' | 'array' | 'string' | 'number' | 'integer' | 
 export interface PostDataSchema {
 	description: string
 	type: SchemaType
-	items: {
-		type: SchemaType
-		properties: {
-			postContent: {
+	properties: {
+		items: {
+			type: SchemaType
+			items: {
 				type: SchemaType
-				description: string
-				nullable: boolean
-			}
-			viraRate: {
-				type: SchemaType
-				description: string
-				nullable: boolean
-			}
-			postImageQuery: {
-				type: SchemaType
-				description: string
-				nullable: boolean
+				properties: {
+					postContent: {
+						type: SchemaType
+						description: string
+						nullable: boolean
+					}
+					viraRate: {
+						type: SchemaType
+						description: string
+						nullable: boolean
+					}
+					postImageQuery: {
+						type: SchemaType
+						description: string
+						nullable: boolean
+					}
+				}
+				required: string[]
 			}
 		}
-		required: string[]
 	}
+	required: string[]
 }
 
 export const getPostDataSchema = (): PostDataSchema => {
 	return {
 		description: `Schema for posting after viewing the JSON DATA for a user persona`,
-		type: 'array',
-		items: {
-			type: 'object',
-			properties: {
-				postContent: {
-					type: 'string',
-					description: 'A post between 100 and 250 characters long. do not add hashtags',
-					nullable: false,
-				},
-				viraRate: {
-					type: 'number',
-					description:
-						'The viral rate, meaning the rate of the content to go viral when posted, measured on a scale of 0 to 100.',
-					nullable: false,
-				},
-				postImageQuery: {
-					type: 'string',
-					description:
-						'A precise image search query to fetch a exact image that matches the post via the Google Custom Search API',
-					nullable: true,
+		type: 'object',
+		properties: {
+			items: {
+				// DeepSeek's JSON mode can only return a JSON object, so the list is wrapped.
+				type: 'array',
+				items: {
+					type: 'object',
+					properties: {
+						postContent: {
+							type: 'string',
+							description: 'A post between 100 and 250 characters long. do not add hashtags',
+							nullable: false,
+						},
+						viraRate: {
+							type: 'number',
+							description:
+								'The viral rate, meaning the rate of the content to go viral when posted, measured on a scale of 0 to 100.',
+							nullable: false,
+						},
+						postImageQuery: {
+							type: 'string',
+							description:
+								'A precise image search query to fetch a exact image that matches the post via the Google Custom Search API',
+							nullable: true,
+						},
+					},
+					required: ['postContent', 'viraRate', 'postImageQuery'],
 				},
 			},
-			required: ['postContent', 'viraRate', 'postImageQuery'],
 		},
+		required: ['items'],
 	}
 }
 

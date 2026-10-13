@@ -3,3 +3,9 @@ node_modules
 build
 
 commit.js
+
+# App runtime output (created by the winston logger)
+logs/
+
+# Test output
+coverage/

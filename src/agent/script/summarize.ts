@@ -16,7 +16,7 @@ function cleanTranscript(rawTranscript: string): string {
 const MainPrompt =
 	'You are tasked with transforming the YouTube video transcript into a training-ready system prompt. The goal is to format the transcript into structured data without reducing its content, and prepare it for use in training another AI model.'
 
-const getYouTubeTranscriptSchema = () => {
+export const getYouTubeTranscriptSchema = () => {
 	return {
 		description: `Transform the YouTube video transcript into a structured format, suitable for training another AI model. Ensure the content remains intact and is formatted correctly.`,
 		type: 'object',
@@ -78,7 +78,7 @@ export async function generateTrainingPrompt(transcript: string, prompt: string 
 const MainPrompt_2 =
 	'You are tasked with transforming the webite scrapped data into a training-ready system prompt. The goal is to format the data into structured data without reducing its content, and prepare it for use in training another AI model.'
 
-const getWebsiteScrapeDatatSchema = () => {
+export const getWebsiteScrapeDatatSchema = () => {
 	return {
 		description: `Transform the website data into a structured format, suitable for training another AI model. Ensure the content remains intact and is formatted correctly.`,
 		type: 'object',

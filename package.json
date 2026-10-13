@@ -10,6 +10,8 @@
 		"del": "tsc && node  --no-warnings  build/utils/DeleteDatabase.js",
 		"post": "tsc && node  --no-warnings  build/agent/features/index.js",
 		"train-agent:web": "tsc && node build/agent/training/WebsiteScraping.js",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"format": "prettier . --check",
 		"format:fix": "prettier . --write",
 		"prepare": "husky"
@@ -88,6 +90,7 @@
 		"npm": "^11.1.0",
 		"ora": "^8.1.1",
 		"prettier": "^3.9.10",
+		"vitest": "^5.0.4",
 		"winston": "^3.19.0",
 		"winston-daily-rotate-file": "^5.0.0"
 	}
